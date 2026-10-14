@@ -178,9 +178,5 @@ namespace KoliMester3000.components
             saveRooms(roomsList);
             Console.WriteLine($"'{studentName}' sikeresen hozzáadva a(z) {foundRoom.roomNameC} szobához!\n");
         }
-        public void teszt()
-        {
-            Console.WriteLine("sédlifhuadjshldféghdfaéjg");
-        }
     }
 }
