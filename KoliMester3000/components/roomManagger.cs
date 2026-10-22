@@ -178,5 +178,50 @@ namespace KoliMester3000.components
             saveRooms(roomsList);
             Console.WriteLine($"'{studentName}' sikeresen hozzáadva a(z) {foundRoom.roomNameC} szobához!\n");
         }
+
+        
+        public static dynamic deleteRoomMembers(string targetRoomName, string deleteResident)
+        {
+            List<Room> roomsList = loadRooms();
+
+            Room foundRoom = null;
+
+            foreach (var room in roomsList)
+            {
+                if (room.roomNameC.Equals(
+                    targetRoomName,
+                    StringComparison.OrdinalIgnoreCase))
+                {
+                    foundRoom = room;
+                    break;
+                }
+            }
+
+            if (foundRoom == null)
+            {
+                return "no-room";
+            }
+            
+            if (!foundRoom.residents.Contains(deleteResident))
+            {
+                Console.WriteLine("Nem sikerült törölni");
+                return "no-resident";
+            }
+
+            int removedCount = foundRoom.residents.RemoveAll(
+                member => member == deleteResident
+            );
+
+            if (removedCount > 0)
+            {
+                Console.WriteLine($"Sikeres törlés: {deleteResident}");
+                saveRooms(roomsList);
+                return null;
+            }
+
+            Console.WriteLine("Nem sikerült törölni");
+            return "no-resident";
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using KoliMester3000.components;
 
 namespace KoliMester3000
 {
@@ -12,6 +13,7 @@ namespace KoliMester3000
                 Console.WriteLine("1 - Szoba létrehozása");
                 Console.WriteLine("2 - Szobák lekérése");
                 Console.WriteLine("3 - Lakó hozzáadása szobához");
+                Console.WriteLine("4 - Lakó törlése szobából");
                 Console.WriteLine("66 - Konzol kiürítése");
                 Console.WriteLine("67 - Kilépés");
                 Console.Write("Írj be egy számot a folytatáshoz: ");
@@ -60,6 +62,44 @@ namespace KoliMester3000
                             Console.ReadKey();
                             Console.Clear();
                             break;
+
+                        case 4:
+                            Console.Clear();
+                            roomManagger.showRooms();
+
+                            Console.WriteLine();
+                            Console.WriteLine("Melyik szobából akarsz törölni?");
+                            string targetRoomName = Console.ReadLine();
+
+                            Console.WriteLine();
+                            Console.WriteLine("Melyik lakót szeretnéd törölni?");
+                            string deleteResident = Console.ReadLine();
+                            dynamic type = roomManagger.deleteRoomMembers(targetRoomName, deleteResident);
+                            if (type == null)
+                            {
+                                Console.WriteLine("Sikeres törlés. Nyomj meg egy gombot a visszatéréshez a főmenübe...");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
+                            } else if (type == "no-room")
+                            {
+                                Console.WriteLine($"Nincs '{targetRoomName}' nevű szoba a rendszerben.\n");
+                                Console.WriteLine("Nyomj meg egy gombot a visszatéréshez a főmenübe...");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
+                            } else if (type == "no-resident")
+                            {
+                                Console.WriteLine($"Nincs '{deleteResident}' nevű lakó a szobában.\n");
+                                Console.WriteLine("Nyomj meg egy gombot a visszatéréshez a főmenübe...");
+                                Console.ReadKey();
+                                Console.Clear();
+                                break;
+                            }
+                            break;
+
+                            
+                            
 
                         case 66:
                             Console.Clear();
